@@ -15,8 +15,13 @@
  *  limitations under the License.
  */
 
-package com.squareup.okhttp;
+package libcore.net.http;
 
+import com.squareup.okhttp.AndroidInternal;
+import com.squareup.okhttp.ConnectionSpec;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.OkUrlFactories;
+import com.squareup.okhttp.OkUrlFactory;
 import com.squareup.okhttp.internal.URLFilter;
 import libcore.net.NetworkSecurityPolicy;
 import java.io.IOException;
@@ -98,7 +103,7 @@ public class HttpHandler extends URLStreamHandler {
 
         // Use the installed NetworkSecurityPolicy to determine which requests are permitted over
         // http.
-        okUrlFactory.setUrlFilter(CLEARTEXT_FILTER);
+        OkUrlFactories.setUrlFilter(okUrlFactory, CLEARTEXT_FILTER);
 
         ResponseCache responseCache = ResponseCache.getDefault();
         if (responseCache != null) {
