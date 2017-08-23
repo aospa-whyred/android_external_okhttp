@@ -15,7 +15,9 @@
  *  limitations under the License.
  */
 
-package com.squareup.okhttp;
+package libcore.net.http;
+
+import com.squareup.okhttp.ConnectionPool;
 
 import libcore.net.event.NetworkEventDispatcher;
 import libcore.net.event.NetworkEventListener;

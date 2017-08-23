@@ -15,7 +15,15 @@
  *  limitations under the License.
  */
 
-package com.squareup.okhttp;
+package libcore.net.http;
+
+import com.squareup.okhttp.CertificatePinner;
+import com.squareup.okhttp.ConnectionSpec;
+import com.squareup.okhttp.ConnectionSpecs;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.OkUrlFactories;
+import com.squareup.okhttp.OkUrlFactory;
+import com.squareup.okhttp.Protocol;
 
 import java.net.Proxy;
 import java.util.Collections;
@@ -32,7 +40,7 @@ public final class HttpsHandler extends HttpHandler {
      * override the enabled ciphers or TLS versions set on the sockets it produces with a
      * list hardcoded at release time. This is deliberate.
      */
-    private static final ConnectionSpec TLS_CONNECTION_SPEC = new ConnectionSpec.Builder(true)
+    private static final ConnectionSpec TLS_CONNECTION_SPEC = ConnectionSpecs.builder(true)
             .allEnabledCipherSuites()
             .allEnabledTlsVersions()
             .supportsTlsExtensions(true)
@@ -68,7 +76,7 @@ public final class HttpsHandler extends HttpHandler {
         OkUrlFactory okUrlFactory = HttpHandler.createHttpOkUrlFactory(proxy);
 
         // All HTTPS requests are allowed.
-        okUrlFactory.setUrlFilter(null);
+        OkUrlFactories.setUrlFilter(okUrlFactory, null);
 
         OkHttpClient okHttpClient = okUrlFactory.client();
 
