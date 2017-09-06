@@ -22,6 +22,7 @@ import com.squareup.okhttp.ConnectionSpec;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.OkUrlFactories;
 import com.squareup.okhttp.OkUrlFactory;
+import com.squareup.okhttp.ConfigAwareConnectionPool;
 import com.squareup.okhttp.internal.URLFilter;
 import libcore.net.NetworkSecurityPolicy;
 import java.io.IOException;
