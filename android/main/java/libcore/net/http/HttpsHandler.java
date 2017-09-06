@@ -24,6 +24,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.OkUrlFactories;
 import com.squareup.okhttp.OkUrlFactory;
 import com.squareup.okhttp.Protocol;
+import com.squareup.okhttp.ConfigAwareConnectionPool;
 
 import java.net.Proxy;
 import java.util.Collections;

@@ -15,9 +15,7 @@
  *  limitations under the License.
  */
 
-package libcore.net.http;
-
-import com.squareup.okhttp.ConnectionPool;
+package com.squareup.okhttp;
 
 import org.junit.Test;
 
