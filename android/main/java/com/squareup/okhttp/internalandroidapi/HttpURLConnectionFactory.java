@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package libcore.net.http;
+package com.squareup.okhttp.internalandroidapi;
 
 import com.squareup.okhttp.ConnectionPool;
+import com.squareup.okhttp.HttpHandler;
+import com.squareup.okhttp.HttpsHandler;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.OkUrlFactories;
 import com.squareup.okhttp.OkUrlFactory;

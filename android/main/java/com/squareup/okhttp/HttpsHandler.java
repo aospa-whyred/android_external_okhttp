@@ -15,16 +15,7 @@
  *  limitations under the License.
  */
 
-package libcore.net.http;
-
-import com.squareup.okhttp.CertificatePinner;
-import com.squareup.okhttp.ConnectionSpec;
-import com.squareup.okhttp.ConnectionSpecs;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.OkUrlFactories;
-import com.squareup.okhttp.OkUrlFactory;
-import com.squareup.okhttp.Protocol;
-import com.squareup.okhttp.ConfigAwareConnectionPool;
+package com.squareup.okhttp;
 
 import java.net.Proxy;
 import java.util.Collections;
