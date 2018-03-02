@@ -76,7 +76,7 @@ java_library_static {
     libs: [
         "okhttp-nojarjar",
         "junit",
-        "bouncycastle-nojarjar",
+        "bouncycastle-unbundled",
         "conscrypt",
     ],
     no_framework_libs: true,
