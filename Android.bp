@@ -39,6 +39,7 @@ java_library_static {
 
 java_library {
     name: "okhttp",
+    installable: true,
     hostdex: true,
     jarjar_rules: "jarjar-rules.txt",
     static_libs: ["okhttp-nojarjar"],
@@ -51,6 +52,7 @@ java_library {
 // not be stripped. See b/24535627.
 java_library {
     name: "okhttp-testdex",
+    installable: true,
     static_libs: ["okhttp"],
     no_framework_libs: true,
     java_version: "1.7",
