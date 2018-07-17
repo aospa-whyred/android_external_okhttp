@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.squareup.okhttp.internalandroidapi;
+package com.android.okhttp.internalandroidapi;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
