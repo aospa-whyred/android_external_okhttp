@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.squareup.okhttp.internalandroidapi;
+package com.android.okhttp.internalandroidapi;
 
 import com.squareup.okhttp.ConnectionPool;
 import com.squareup.okhttp.HttpHandler;
@@ -38,7 +38,7 @@ import javax.net.SocketFactory;
 /**
  * A way to construct {@link java.net.HttpURLConnection}s that supports some
  * configuration on a per-factory or per-connection basis rather than only via
- * global static state such as {@link CookieHandler#setDefault(CookieHandler)}.
+ * global static state such as {@link java.net.CookieHandler#setDefault(java.net.CookieHandler)}.
  * The per-factory configuration is <b>optional</b>; if not set, global
  * configuration or default behavior is used.
  *
