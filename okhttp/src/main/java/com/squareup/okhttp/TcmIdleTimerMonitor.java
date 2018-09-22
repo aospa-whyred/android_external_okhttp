@@ -33,16 +33,20 @@ import com.squareup.okhttp.internal.Platform;
 import dalvik.system.PathClassLoader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import com.quicinc.tcmiface.DpmTcmIface;
+import java.lang.reflect.Proxy;
+import java.lang.reflect.InvocationHandler;
 
 /**
  * @hide
  */
-public class TcmIdleTimerMonitor implements DpmTcmIface {
+
+
+public class TcmIdleTimerMonitor implements InvocationHandler {
   private ConnectionPool connectionPool;
   private static Object tcmClient = null;
   private static Method mTcmRegisterMethod = null;
   private static Object lockObj = new Object();
+  private static Object dpmTcmIface;
   Object result = null;
 
   /** @hide */
@@ -55,13 +59,29 @@ public class TcmIdleTimerMonitor implements DpmTcmIface {
           PathClassLoader tcmClassLoader =
             new PathClassLoader("/system/framework/tcmclient.jar",
                 ClassLoader.getSystemClassLoader());
+          //load tcmiface if not already loader
+          PathClassLoader tcmIfaceClassLoader =
+            new PathClassLoader("/system/framework/tcmiface.jar",
+                ClassLoader.getSystemClassLoader());
+
           Class tcmClass = tcmClassLoader.loadClass("com.qti.tcmclient.DpmTcmClient");
+
+          Class tcmIfaceClass = tcmIfaceClassLoader.loadClass("com.quicinc.tcmiface.DpmTcmIface");
+          //Platform.get().logW("print class name: " + tcmIfaceClass.getName());
+
+          //get DpmTcmIface object via ProxyInstance
+          dpmTcmIface =  Proxy.newProxyInstance(tcmIfaceClassLoader,
+                      new Class[]{tcmIfaceClass}, this);
+
           Method mGetTcmMethod = tcmClass.getDeclaredMethod("getInstance");
           tcmClient = mGetTcmMethod.invoke(null);
-          mTcmRegisterMethod = tcmClass.getDeclaredMethod("registerTcmMonitor", DpmTcmIface.class);
+
+          mTcmRegisterMethod = tcmClass.getDeclaredMethod("registerTcmMonitor",Object.class);
+
+          //Platform.get().logW("tcmiface methoid  value: " + mTcmRegisterMethod );
         }
         if (mTcmRegisterMethod != null && tcmClient != null) {
-          result = mTcmRegisterMethod.invoke(tcmClient, this);
+          result = mTcmRegisterMethod.invoke(tcmClient, dpmTcmIface);
         }
       } catch (ClassNotFoundException e) {
         //Ignore ClassNotFound Exception
@@ -71,9 +91,21 @@ public class TcmIdleTimerMonitor implements DpmTcmIface {
     }
   }
 
+
+  /** @hide */
+  public Object invoke(Object proxy, Method method, Object[] args)
+          throws Throwable {
+
+        //Platform.get().logW("tcmclient invoke called : onCloseIdleConnection");
+          this.OnCloseIdleConn();
+          return null;
+   }
+
   /** @hide */
   public void OnCloseIdleConn()
   {
+
+    //Platform.get().logW("tcmclient invoke called : onCloseIdleConnection calling next level");
     connectionPool.closeIdleConnections();
   }
 } // class TcmIdleTimerMonitor
