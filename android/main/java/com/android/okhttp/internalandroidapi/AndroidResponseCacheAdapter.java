@@ -36,6 +36,7 @@ import java.util.Map;
  * with OkHttp at arms length. By delegating to this class the Android HttpResponseCache class has
  * no knowledge of OkHttp internal classes at class resolution time and there are no internal
  * classes appearing on method signatures.
+ * @hide
  */
 public final class AndroidResponseCacheAdapter {
 
