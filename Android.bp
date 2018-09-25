@@ -14,24 +14,25 @@
 // limitations under the License.
 //
 
-// non-jarjar'd version of okhttp to compile the tests against
-java_library_static {
-    name: "okhttp-nojarjar",
-    hostdex: true,
+// The source files that contribute to Android's core library APIs.
+filegroup {
+    name: "okhttp_api_files",
+    srcs: ["android/main/java/com/android/okhttp/internalandroidapi/**/*.java"],
+}
 
+// non-jarjar'd version of okhttp to compile the tests against
+java_library {
+    name: "okhttp-nojarjar",
     srcs: [
+        "android/main/java/**/*.java",
         "okhttp/src/main/java/**/*.java",
         "okhttp-urlconnection/src/main/java/**/*.java",
         "okhttp-android-support/src/main/java/**/*.java",
         "okio/okio/src/main/java/**/*.java",
     ],
+    exclude_srcs: ["okhttp/src/main/java/com/squareup/okhttp/internal/Platform.java"],
 
-    target: {
-        android: {
-            srcs: ["android/main/java/**/*.java"],
-            exclude_srcs: ["okhttp/src/main/java/com/squareup/okhttp/internal/Platform.java"],
-        },
-    },
+    hostdex: true,
 
     no_framework_libs: true,
     java_version: "1.7",
@@ -39,10 +40,12 @@ java_library_static {
 
 java_library {
     name: "okhttp",
-    installable: true,
-    hostdex: true,
-    jarjar_rules: "jarjar-rules.txt",
     static_libs: ["okhttp-nojarjar"],
+    jarjar_rules: "jarjar-rules.txt",
+
+    hostdex: true,
+    installable: true,
+
     no_framework_libs: true,
     java_version: "1.7",
 }
@@ -52,15 +55,16 @@ java_library {
 // not be stripped. See b/24535627.
 java_library {
     name: "okhttp-testdex",
-    installable: true,
     static_libs: ["okhttp"],
+
+    installable: true,
+
     no_framework_libs: true,
     java_version: "1.7",
 }
 
 java_library_static {
     name: "okhttp-tests-nojarjar",
-
     srcs: [
         "android/test/java/**/*.java",
         "okhttp-android-support/src/test/java/**/*.java",
@@ -75,6 +79,7 @@ java_library_static {
     ],
     // Exclude test Android currently has problems with due to @Parameterized (requires JUnit 4.11).
     exclude_srcs: ["okhttp-tests/src/test/java/com/squareup/okhttp/WebPlatformUrlTest.java"],
+
     libs: [
         "okhttp-nojarjar",
         "junit",
