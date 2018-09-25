@@ -22,6 +22,7 @@ import java.io.File;
 
 /**
  * An interface used to indicate a class can return a {@link CacheHolder} object.
+ * @hide
  */
 public interface HasCacheHolder {
 

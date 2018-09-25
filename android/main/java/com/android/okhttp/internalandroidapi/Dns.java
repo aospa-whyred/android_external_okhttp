@@ -22,6 +22,7 @@ import java.util.List;
 
 /**
  * A domain name service that resolves IP addresses for host names.
+ * @hide
  */
 public interface Dns {
     /**
