@@ -38,11 +38,13 @@ import java.util.Map;
  * classes appearing on method signatures.
  * @hide
  */
+@libcore.api.CorePlatformApi
 public final class AndroidResponseCacheAdapter {
 
     private final CacheHolder cacheHolder;
     private final Cache okHttpCache;
 
+    @libcore.api.CorePlatformApi
     public AndroidResponseCacheAdapter(CacheHolder cacheHolder) {
         this.cacheHolder = cacheHolder;
         // Avoid one level of dereferencing by storing the reference to the OkHttp cache for later.
@@ -52,8 +54,8 @@ public final class AndroidResponseCacheAdapter {
     /**
      * Returns the {@link CacheHolder} associated with this instance and can be used by OkHttp
      * internal code to obtain the underlying OkHttp Cache object.
-     * @hide
      */
+    @libcore.api.CorePlatformApi
     public CacheHolder getCacheHolder() {
         return cacheHolder;
     }
@@ -62,6 +64,7 @@ public final class AndroidResponseCacheAdapter {
      * Used to implement {@link java.net.ResponseCache#get(URI, String, Map)}. See that method for
      * details.
      */
+    @libcore.api.CorePlatformApi
     public CacheResponse get(URI uri, String requestMethod,
             Map<String, List<String>> requestHeaders) throws IOException {
         Request okRequest = JavaApiConverter.createOkRequest(uri, requestMethod, requestHeaders);
@@ -76,6 +79,7 @@ public final class AndroidResponseCacheAdapter {
      * Used to implement {@link java.net.ResponseCache#put(URI, URLConnection)}. See that method for
      * details.
      */
+    @libcore.api.CorePlatformApi
     public CacheRequest put(URI uri, URLConnection urlConnection) throws IOException {
         Response okResponse = JavaApiConverter.createOkResponseForCachePut(uri, urlConnection);
         if (okResponse == null) {
@@ -95,6 +99,7 @@ public final class AndroidResponseCacheAdapter {
      * this cache. This may be greater than the {@link #getMaxSize()} if a background
      * deletion is pending. IOException is thrown if the size cannot be determined.
      */
+    @libcore.api.CorePlatformApi
     public long getSize() throws IOException {
         return okHttpCache.getSize();
     }
@@ -103,6 +108,7 @@ public final class AndroidResponseCacheAdapter {
      * Returns the maximum number of bytes that this cache should use to store
      * its data.
      */
+    @libcore.api.CorePlatformApi
     public long getMaxSize() {
         return okHttpCache.getMaxSize();
     }
@@ -112,6 +118,7 @@ public final class AndroidResponseCacheAdapter {
      * written to the cache will be available the next time the cache is opened,
      * even if this process is killed. IOException is thrown if the flush fails.
      */
+    @libcore.api.CorePlatformApi
     public void flush() throws IOException {
         okHttpCache.flush();
     }
@@ -120,6 +127,7 @@ public final class AndroidResponseCacheAdapter {
      * Returns the number of HTTP requests that required the network to either
      * supply a response or validate a locally cached response.
      */
+    @libcore.api.CorePlatformApi
     public int getNetworkCount() {
         return okHttpCache.getNetworkCount();
     }
@@ -129,6 +137,7 @@ public final class AndroidResponseCacheAdapter {
      * cache. This may include conditional {@code GET} requests that were
      * validated over the network.
      */
+    @libcore.api.CorePlatformApi
     public int getHitCount() {
         return okHttpCache.getHitCount();
     }
@@ -138,11 +147,13 @@ public final class AndroidResponseCacheAdapter {
      * both client requests and requests that were made on the client's behalf
      * to handle a redirects and retries.
      */
+    @libcore.api.CorePlatformApi
     public int getRequestCount() {
         return okHttpCache.getRequestCount();
     }
 
     /** Closes this cache. Stored values will remain on the filesystem. */
+    @libcore.api.CorePlatformApi
     public void close() throws IOException {
         okHttpCache.close();
     }
@@ -152,6 +163,7 @@ public final class AndroidResponseCacheAdapter {
      * all files in the cache directory including files that weren't created by
      * the cache.
      */
+    @libcore.api.CorePlatformApi
     public void delete() throws IOException {
         okHttpCache.delete();
     }
