@@ -34,7 +34,11 @@ java_library {
 
     hostdex: true,
 
-    no_framework_libs: true,
+    no_standard_libs: true,
+    libs: [
+        "core-all",
+    ],
+    system_modules: "core-all-system-modules",
     java_version: "1.7",
 }
 
@@ -46,7 +50,11 @@ java_library {
     hostdex: true,
     installable: true,
 
-    no_framework_libs: true,
+    no_standard_libs: true,
+    libs: [
+        "core-all",
+    ],
+    system_modules: "core-all-system-modules",
     java_version: "1.7",
 }
 
@@ -59,7 +67,11 @@ java_library {
 
     installable: true,
 
-    no_framework_libs: true,
+    no_standard_libs: true,
+    libs: [
+        "core-all",
+    ],
+    system_modules: "core-all-system-modules",
     java_version: "1.7",
 }
 
@@ -84,7 +96,6 @@ java_library_static {
         "okhttp-nojarjar",
         "junit",
         "bouncycastle-unbundled",
-        "conscrypt",
     ],
     no_framework_libs: true,
     java_version: "1.7",
