@@ -36,6 +36,7 @@ public interface HasCacheHolder {
     /**
      * A holder for an OkHttp internal Cache object. This class exists as an opaque layer over
      * OkHttp internal classes.
+     * @hide
      */
     @libcore.api.CorePlatformApi
     final class CacheHolder {
