@@ -30,9 +30,6 @@ java_library {
         "okhttp-android-support/src/main/java/**/*.java",
         "okio/okio/src/main/java/**/*.java",
     ],
-    libs: [
-       "tcmiface",
-    ],
     target: {
         android: {
             srcs: ["android/main/java/**/*.java"],
@@ -50,9 +47,6 @@ java_library {
 java_library {
     name: "okhttp",
     static_libs: ["okhttp-nojarjar"],
-    libs: [
-       "tcmiface",
-    ],
     jarjar_rules: "jarjar-rules.txt",
 
     hostdex: true,
@@ -97,7 +91,6 @@ java_library_static {
         "junit",
         "bouncycastle-unbundled",
         "conscrypt",
-        "tcmiface",
     ],
     no_framework_libs: true,
     java_version: "1.7",
