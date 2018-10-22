@@ -40,7 +40,11 @@ java_library {
 
     hostdex: true,
 
-    no_framework_libs: true,
+    no_standard_libs: true,
+    libs: [
+        "core-all",
+    ],
+    system_modules: "core-all-system-modules",
     java_version: "1.7",
 }
 
@@ -52,7 +56,11 @@ java_library {
     hostdex: true,
     installable: true,
 
-    no_framework_libs: true,
+    no_standard_libs: true,
+    libs: [
+        "core-all",
+    ],
+    system_modules: "core-all-system-modules",
     java_version: "1.7",
 }
 
@@ -65,7 +73,11 @@ java_library {
 
     installable: true,
 
-    no_framework_libs: true,
+    no_standard_libs: true,
+    libs: [
+        "core-all",
+    ],
+    system_modules: "core-all-system-modules",
     java_version: "1.7",
 }
 
@@ -86,12 +98,15 @@ java_library_static {
     // Exclude test Android currently has problems with due to @Parameterized (requires JUnit 4.11).
     exclude_srcs: ["okhttp-tests/src/test/java/com/squareup/okhttp/WebPlatformUrlTest.java"],
 
+    no_standard_libs: true,
     libs: [
+        "core-all",
         "okhttp-nojarjar",
         "junit",
-        "bouncycastle-unbundled",
         "conscrypt",
+        "bouncycastle-unbundled",
     ],
-    no_framework_libs: true,
+    system_modules: "core-all-system-modules",
+
     java_version: "1.7",
 }
