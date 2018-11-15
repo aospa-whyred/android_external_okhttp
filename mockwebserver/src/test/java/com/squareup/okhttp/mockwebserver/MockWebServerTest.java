@@ -41,6 +41,7 @@ import org.junit.runners.model.Statement;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -360,10 +361,4 @@ public final class MockWebServerTest {
     } catch (ConnectException expected) {
     }
   }
-
-  // ANDROID-BEGIN Android uses JUnit 4.10 which does not have assertNotEquals()
-  private static void assertNotEquals(Object o1, Object o2) {
-    org.junit.Assert.assertFalse(o1 == o2 || (o1 != null && o1.equals(o2)));
-  }
-  // ANDROID-END
 }
