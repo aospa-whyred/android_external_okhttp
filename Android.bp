@@ -17,14 +17,14 @@
 // The source files that contribute to Android's core library APIs.
 filegroup {
     name: "okhttp_api_files",
-    srcs: ["android/main/java/com/android/okhttp/internalandroidapi/**/*.java"],
+    srcs: ["android/src/main/java/com/android/okhttp/internalandroidapi/**/*.java"],
 }
 
 // non-jarjar'd version of okhttp to compile the tests against
 java_library {
     name: "okhttp-nojarjar",
     srcs: [
-        "android/main/java/**/*.java",
+        "android/src/main/java/**/*.java",
         "okhttp/src/main/java/**/*.java",
         "okhttp-urlconnection/src/main/java/**/*.java",
         "okhttp-android-support/src/main/java/**/*.java",
