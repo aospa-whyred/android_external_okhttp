@@ -19,6 +19,7 @@
 package com.android.okhttp;
 
 import com.android.okhttp.internal.URLFilter;
+import dalvik.annotation.compat.UnsupportedAppUsage;
 import libcore.net.NetworkSecurityPolicy;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -43,6 +44,10 @@ public class HttpHandler extends URLStreamHandler {
 
     private final ConfigAwareConnectionPool configAwareConnectionPool =
             ConfigAwareConnectionPool.getInstance();
+
+    @UnsupportedAppUsage
+    public HttpHandler() {
+    }
 
     @Override protected URLConnection openConnection(URL url) throws IOException {
         return newOkUrlFactory(null /* proxy */).open(url);
