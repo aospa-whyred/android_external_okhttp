@@ -59,6 +59,10 @@ public final class HttpURLConnectionFactory {
     private ConnectionPool connectionPool;
     private com.android.okhttp.Dns dns;
 
+    @libcore.api.CorePlatformApi
+    public HttpURLConnectionFactory() {
+    }
+
     /**
      * Sets a new ConnectionPool, specific to this URLFactory and not shared with
      * any other connections, with the given configuration.
