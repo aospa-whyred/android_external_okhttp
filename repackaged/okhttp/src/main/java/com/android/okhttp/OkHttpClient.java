@@ -53,6 +53,7 @@ import javax.net.ssl.SSLSocketFactory;
  * @hide This class is not part of the Android public SDK API
  */
 public class OkHttpClient implements Cloneable {
+  @dalvik.annotation.compat.UnsupportedAppUsage
   private static final List<Protocol> DEFAULT_PROTOCOLS = Util.immutableList(
       Protocol.HTTP_2, Protocol.SPDY_3, Protocol.HTTP_1_1);
 
@@ -138,7 +139,9 @@ public class OkHttpClient implements Cloneable {
   private HostnameVerifier hostnameVerifier;
   private CertificatePinner certificatePinner;
   private Authenticator authenticator;
+  @dalvik.annotation.compat.UnsupportedAppUsage
   private ConnectionPool connectionPool;
+  @dalvik.annotation.compat.UnsupportedAppUsage
   private Dns dns;
   private boolean followSslRedirects = true;
   private boolean followRedirects = true;
@@ -147,6 +150,7 @@ public class OkHttpClient implements Cloneable {
   private int readTimeout = 10_000;
   private int writeTimeout = 10_000;
 
+  @dalvik.annotation.compat.UnsupportedAppUsage
   public OkHttpClient() {
     routeDatabase = new RouteDatabase();
     dispatcher = new Dispatcher();
@@ -248,6 +252,7 @@ public class OkHttpClient implements Cloneable {
     return this;
   }
 
+  @dalvik.annotation.compat.UnsupportedAppUsage
   public Proxy getProxy() {
     return proxy;
   }
@@ -266,6 +271,7 @@ public class OkHttpClient implements Cloneable {
     return this;
   }
 
+  @dalvik.annotation.compat.UnsupportedAppUsage
   public ProxySelector getProxySelector() {
     return proxySelector;
   }
@@ -282,6 +288,7 @@ public class OkHttpClient implements Cloneable {
     return this;
   }
 
+  @dalvik.annotation.compat.UnsupportedAppUsage
   public CookieHandler getCookieHandler() {
     return cookieHandler;
   }
@@ -348,6 +355,7 @@ public class OkHttpClient implements Cloneable {
     return this;
   }
 
+  @dalvik.annotation.compat.UnsupportedAppUsage
   public SSLSocketFactory getSslSocketFactory() {
     return sslSocketFactory;
   }
@@ -363,6 +371,7 @@ public class OkHttpClient implements Cloneable {
     return this;
   }
 
+  @dalvik.annotation.compat.UnsupportedAppUsage
   public HostnameVerifier getHostnameVerifier() {
     return hostnameVerifier;
   }
@@ -409,6 +418,7 @@ public class OkHttpClient implements Cloneable {
     return this;
   }
 
+  @dalvik.annotation.compat.UnsupportedAppUsage
   public ConnectionPool getConnectionPool() {
     return connectionPool;
   }
@@ -456,6 +466,7 @@ public class OkHttpClient implements Cloneable {
    * Set this to false to avoid retrying requests when doing so is destructive. In this case the
    * calling application should do its own recovery of connectivity failures.
    */
+  @dalvik.annotation.compat.UnsupportedAppUsage
   public void setRetryOnConnectionFailure(boolean retryOnConnectionFailure) {
     this.retryOnConnectionFailure = retryOnConnectionFailure;
   }
@@ -512,6 +523,7 @@ public class OkHttpClient implements Cloneable {
    *     must contain {@link Protocol#HTTP_1_1}. It must not contain null or
    *     {@link Protocol#HTTP_1_0}.
    */
+  @dalvik.annotation.compat.UnsupportedAppUsage
   public OkHttpClient setProtocols(List<Protocol> protocols) {
     protocols = Util.immutableList(protocols);
     if (!protocols.contains(Protocol.HTTP_1_1)) {

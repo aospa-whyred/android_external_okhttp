@@ -37,12 +37,17 @@ import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
  */
 public final class Response {
   private final Request request;
+  @dalvik.annotation.compat.UnsupportedAppUsage
   private final Protocol protocol;
+  @dalvik.annotation.compat.UnsupportedAppUsage
   private final int code;
+  @dalvik.annotation.compat.UnsupportedAppUsage
   private final String message;
   private final Handshake handshake;
+  @dalvik.annotation.compat.UnsupportedAppUsage
   private final Headers headers;
   private final ResponseBody body;
+  @dalvik.annotation.compat.UnsupportedAppUsage
   private Response networkResponse;
   private Response cacheResponse;
   private final Response priorResponse;
