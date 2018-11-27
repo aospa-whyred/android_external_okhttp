@@ -1,4 +1,17 @@
 #!/bin/bash
+# Copyright (C) 2018 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 if [ -z "$ANDROID_BUILD_TOP" ]; then
     echo "Missing environment variables. Did you run build/envsetup.sh and lunch?" 1>&2
@@ -7,6 +20,9 @@ fi
 
 CLASSPATH=${ANDROID_HOST_OUT}/framework/currysrc.jar
 PROJECT_DIR=${ANDROID_BUILD_TOP}/external/okhttp
+
+UNSUPPORTED_APP_USAGE_FILE=${PROJECT_DIR}/srcgen/unsupported-app-usage.json
+DEFAULT_CONSTRUCTORS_FILE=${PROJECT_DIR}/srcgen/default-constructors.txt
 
 cd ${ANDROID_BUILD_TOP}
 make -j15 currysrc
@@ -28,6 +44,8 @@ function do_transform() {
        --package-transformation "com.squareup:com.android" \
        --package-transformation "okio:com.android.okhttp.okio" \
        --tab-size 2 \
+       --unsupported-app-usage-file ${UNSUPPORTED_APP_USAGE_FILE} \
+       --default-constructors ${DEFAULT_CONSTRUCTORS_FILE} \
 
 }
 
