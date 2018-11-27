@@ -17,6 +17,7 @@
 
 package com.squareup.okhttp;
 
+import dalvik.annotation.compat.UnsupportedAppUsage;
 import java.net.Proxy;
 import java.util.Collections;
 import java.util.List;
@@ -43,6 +44,10 @@ public final class HttpsHandler extends HttpHandler {
 
     private final ConfigAwareConnectionPool configAwareConnectionPool =
             ConfigAwareConnectionPool.getInstance();
+
+    @UnsupportedAppUsage
+    public HttpsHandler() {
+    }
 
     @Override protected int getDefaultPort() {
         return 443;

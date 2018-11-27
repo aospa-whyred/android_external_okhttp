@@ -74,6 +74,7 @@ public final class HttpDate {
       new DateFormat[BROWSER_COMPATIBLE_DATE_FORMAT_STRINGS.length];
 
   /** Returns the date for {@code value}. Returns null if the value couldn't be parsed. */
+  @dalvik.annotation.compat.UnsupportedAppUsage
   public static Date parse(String value) {
     if (value.length() == 0) {
       return null;
@@ -112,6 +113,7 @@ public final class HttpDate {
   }
 
   /** Returns the string for {@code value}. */
+  @dalvik.annotation.compat.UnsupportedAppUsage
   public static String format(Date value) {
     return STANDARD_DATE_FORMAT.get().format(value);
   }
