@@ -48,6 +48,7 @@ public class Platform {
     protected Platform() {
     }
 
+    @dalvik.annotation.compat.UnsupportedAppUsage
     public static Platform get() {
         return INSTANCE_HOLDER.get();
     }
@@ -89,6 +90,7 @@ public class Platform {
     private static final OptionalMethod<Socket> SET_ALPN_PROTOCOLS =
             new OptionalMethod<Socket>(null, "setAlpnProtocols", byte[].class );
 
+    @dalvik.annotation.compat.UnsupportedAppUsage
     public void logW(String warning) {
         System.logW(warning);
     }
