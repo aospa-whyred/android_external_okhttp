@@ -81,6 +81,9 @@ java_library {
     libs: [
         "core-all",
     ],
+    dex_preopt: {
+        enabled: false,
+    },
     system_modules: "core-all-system-modules",
     java_version: "1.7",
 }
