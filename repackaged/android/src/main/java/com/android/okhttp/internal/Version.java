@@ -16,10 +16,13 @@
  */
 package com.android.okhttp.internal;
 
+import dalvik.annotation.compat.UnsupportedAppUsage;
+
 /**
  * @hide This class is not part of the Android public SDK API
  */
 public final class Version {
+  @UnsupportedAppUsage
   public static String userAgent() {
     String agent = System.getProperty("http.agent");
     return agent != null ? agent : ("Java" + System.getProperty("java.version"));
