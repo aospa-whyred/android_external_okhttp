@@ -1,3 +1,4 @@
+/* GENERATED SOURCE. DO NOT MODIFY. */
 /*
  * Copyright (C) 2017 The Android Open Source Project
  *
@@ -16,12 +17,12 @@
 
 package com.android.okhttp.internalandroidapi;
 
-import com.squareup.okhttp.ConnectionPool;
-import com.squareup.okhttp.HttpHandler;
-import com.squareup.okhttp.HttpsHandler;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.OkUrlFactories;
-import com.squareup.okhttp.OkUrlFactory;
+import com.android.okhttp.ConnectionPool;
+import com.android.okhttp.HttpHandler;
+import com.android.okhttp.HttpsHandler;
+import com.android.okhttp.OkHttpClient;
+import com.android.okhttp.OkUrlFactories;
+import com.android.okhttp.OkUrlFactory;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -50,12 +51,13 @@ import javax.net.SocketFactory;
  * this class before modifying it or adding additional dependencies.
  *
  * @hide
+ * @hide This class is not part of the Android public SDK API
  */
 @libcore.api.CorePlatformApi
 public final class HttpURLConnectionFactory {
 
     private ConnectionPool connectionPool;
-    private com.squareup.okhttp.Dns dns;
+    private com.android.okhttp.Dns dns;
 
     @libcore.api.CorePlatformApi
     public HttpURLConnectionFactory() {
@@ -147,9 +149,9 @@ public final class HttpURLConnectionFactory {
     }
 
     /**
-     * Adapts a {@link Dns} as a {@link com.squareup.okhttp.Dns}.
+     * Adapts a {@link Dns} as a {@link com.android.okhttp.Dns}.
      */
-    static final class DnsAdapter implements com.squareup.okhttp.Dns {
+    static final class DnsAdapter implements com.android.okhttp.Dns {
         private final Dns adaptee;
 
         DnsAdapter(Dns adaptee) {

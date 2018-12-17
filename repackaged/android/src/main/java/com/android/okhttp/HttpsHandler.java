@@ -1,3 +1,4 @@
+/* GENERATED SOURCE. DO NOT MODIFY. */
 /*
  *  Licensed to the Apache Software Foundation (ASF) under one or more
  *  contributor license agreements.  See the NOTICE file distributed with
@@ -15,7 +16,7 @@
  *  limitations under the License.
  */
 
-package com.squareup.okhttp;
+package com.android.okhttp;
 
 import dalvik.annotation.compat.UnsupportedAppUsage;
 import java.net.Proxy;
@@ -24,6 +25,9 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
+/**
+ * @hide This class is not part of the Android public SDK API
+ */
 public final class HttpsHandler extends HttpHandler {
 
     /**

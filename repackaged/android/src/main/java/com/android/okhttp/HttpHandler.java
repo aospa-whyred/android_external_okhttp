@@ -1,3 +1,4 @@
+/* GENERATED SOURCE. DO NOT MODIFY. */
 /*
  *  Licensed to the Apache Software Foundation (ASF) under one or more
  *  contributor license agreements.  See the NOTICE file distributed with
@@ -15,9 +16,9 @@
  *  limitations under the License.
  */
 
-package com.squareup.okhttp;
+package com.android.okhttp;
 
-import com.squareup.okhttp.internal.URLFilter;
+import com.android.okhttp.internal.URLFilter;
 import dalvik.annotation.compat.UnsupportedAppUsage;
 import libcore.net.NetworkSecurityPolicy;
 import java.io.IOException;
@@ -31,6 +32,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @hide This class is not part of the Android public SDK API
+ */
 public class HttpHandler extends URLStreamHandler {
 
     private final static List<ConnectionSpec> CLEARTEXT_ONLY =
