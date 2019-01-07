@@ -15,7 +15,10 @@
  */
 package com.squareup.okhttp.internal;
 
+import dalvik.annotation.compat.UnsupportedAppUsage;
+
 public final class Version {
+  @UnsupportedAppUsage
   public static String userAgent() {
     String agent = System.getProperty("http.agent");
     return agent != null ? agent : ("Java" + System.getProperty("java.version"));
