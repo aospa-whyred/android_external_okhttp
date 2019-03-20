@@ -16,7 +16,7 @@
  *  limitations under the License.
  */
 package com.android.okhttp;
-
+import com.android.okhttp.internal.Platform;
 import com.android.okhttp.internal.Internal;
 import com.android.okhttp.internal.RouteDatabase;
 import com.android.okhttp.internal.Util;
@@ -62,6 +62,7 @@ public final class ConnectionPool {
 
   @dalvik.annotation.compat.UnsupportedAppUsage
   private static final ConnectionPool systemDefault;
+  private TcmIdleTimerMonitor mIdleMonitor;
 
   static {
     String keepAlive = System.getProperty("http.keepAlive");
@@ -90,7 +91,7 @@ public final class ConnectionPool {
 
   /** The maximum number of idle connections for each address. */
   @dalvik.annotation.compat.UnsupportedAppUsage
-  private final int maxIdleConnections;
+  private int maxIdleConnections;
   @dalvik.annotation.compat.UnsupportedAppUsage
   private final long keepAliveDurationNs;
   private Runnable cleanupRunnable = new Runnable() {
@@ -128,6 +129,7 @@ public final class ConnectionPool {
     if (keepAliveDuration <= 0) {
       throw new IllegalArgumentException("keepAliveDuration <= 0: " + keepAliveDuration);
     }
+    mIdleMonitor = new TcmIdleTimerMonitor(this);
   }
 
   public static ConnectionPool getDefault() {
@@ -330,4 +332,18 @@ public final class ConnectionPool {
   void setCleanupRunnableForTest(Runnable cleanupRunnable) {
     this.cleanupRunnable = cleanupRunnable;
   }
+
+  /** Close all idle connections */
+  public synchronized void closeIdleConnections()
+  {
+    int oldMaxIdleConections = maxIdleConnections;
+    maxIdleConnections = 0;
+    try {
+      executor.execute(cleanupRunnable);
+    } catch (Exception err) {
+      Platform.get().logW("Unable to closeIdleConnections(): " + err);
+    }
+    maxIdleConnections = oldMaxIdleConections;
+  }
+
 }
