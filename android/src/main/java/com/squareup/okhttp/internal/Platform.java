@@ -122,9 +122,14 @@ public class Platform {
             } else {
                 SET_USE_SESSION_TICKETS.invokeOptionalWithoutCheckedException(sslSocket, true);
             }
-            // Enable SNI
-            sslParams.setServerNames(
-                Collections.<SNIServerName>singletonList(new SNIHostName(hostname)));
+            try {
+                // Enable SNI
+                sslParams.setServerNames(
+                    Collections.<SNIServerName>singletonList(new SNIHostName(hostname)));
+            } catch (IllegalArgumentException ignored) {
+                // The hostname isn't a valid SNI value, so ignore the exception and don't set
+                // a server name, which results in no SNI extension being sent.
+            }
             if (!isPlatformSocket(sslSocket)) {
                 SET_HOSTNAME.invokeOptionalWithoutCheckedException(sslSocket, hostname);
             }
