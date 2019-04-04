@@ -16,6 +16,7 @@
  */
 package com.squareup.okhttp.internal;
 
+import android.net.ssl.SSLSockets;
 import com.squareup.okhttp.Protocol;
 import com.squareup.okhttp.internal.tls.RealTrustRootIndex;
 import com.squareup.okhttp.internal.tls.TrustRootIndex;
@@ -25,8 +26,12 @@ import java.lang.reflect.Field;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import javax.net.ssl.SNIHostName;
+import javax.net.ssl.SNIServerName;
+import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
@@ -74,6 +79,13 @@ public class Platform {
         return INSTANCE_HOLDER.getAndSet(platform);
     }
 
+    // NOTE: Prior to Android Q, the standard way of accessing some Conscrypt features was to
+    // use reflection to call hidden APIs.  Beginning in Q, there is public API for all of these
+    // features.  We attempt to use the public API where possible, but also still call the
+    // hidden versions to continue to support old versions of Conscrypt that might be bundled with
+    // apps or third-party TLS providers that might have taken advantage of being able to
+    // duck-type their way into compatibility.  For more background, see b/128280837.
+
     /** setUseSessionTickets(boolean) */
     private static final OptionalMethod<Socket> SET_USE_SESSION_TICKETS =
             new OptionalMethod<Socket>(null, "setUseSessionTickets", Boolean.TYPE);
@@ -101,22 +113,36 @@ public class Platform {
 
     public void configureTlsExtensions(
             SSLSocket sslSocket, String hostname, List<Protocol> protocols) {
-        // Enable SNI and session tickets.
+        // All extensions here use both public API and reflective calls, see note above.
+        SSLParameters sslParams = sslSocket.getSSLParameters();
         if (hostname != null) {
-            SET_USE_SESSION_TICKETS.invokeOptionalWithoutCheckedException(sslSocket, true);
-            SET_HOSTNAME.invokeOptionalWithoutCheckedException(sslSocket, hostname);
+            // Enable session tickets
+            if (SSLSockets.isSupportedSocket(sslSocket)) {
+                SSLSockets.setUseSessionTickets(sslSocket, true);
+            } else {
+                SET_USE_SESSION_TICKETS.invokeOptionalWithoutCheckedException(sslSocket, true);
+            }
+            try {
+                // Enable SNI
+                sslParams.setServerNames(
+                    Collections.<SNIServerName>singletonList(new SNIHostName(hostname)));
+            } catch (IllegalArgumentException ignored) {
+                // The hostname isn't a valid SNI value, so ignore the exception and don't set
+                // a server name, which results in no SNI extension being sent.
+            }
+            if (!isPlatformSocket(sslSocket)) {
+                SET_HOSTNAME.invokeOptionalWithoutCheckedException(sslSocket, hostname);
+            }
         }
 
-        // Enable ALPN.
-        boolean alpnSupported = SET_ALPN_PROTOCOLS.isSupported(sslSocket);
-        if (!alpnSupported) {
-            return;
-        }
+        // Enable ALPN, if necessary
+        sslParams.setApplicationProtocols(getProtocolIds(protocols));
 
-        Object[] parameters = { concatLengthPrefixed(protocols) };
-        if (alpnSupported) {
+        if (!isPlatformSocket(sslSocket) && SET_ALPN_PROTOCOLS.isSupported(sslSocket)) {
+            Object[] parameters = {concatLengthPrefixed(protocols)};
             SET_ALPN_PROTOCOLS.invokeWithoutCheckedException(sslSocket, parameters);
         }
+        sslSocket.setSSLParameters(sslParams);
     }
 
     /**
@@ -127,6 +153,13 @@ public class Platform {
     }
 
     public String getSelectedProtocol(SSLSocket socket) {
+        // This API was added in Android Q
+        try {
+            return socket.getApplicationProtocol();
+        } catch (UnsupportedOperationException ignored) {
+            // The socket doesn't support this API, try the old reflective method
+        }
+        // This method was used through Android P, see note above
         boolean alpnSupported = GET_ALPN_SELECTED_PROTOCOL.isSupported(socket);
         if (!alpnSupported) {
             return null;
@@ -198,6 +231,18 @@ public class Platform {
         }
 
         return null;
+    }
+
+    private static boolean isPlatformSocket(SSLSocket socket) {
+        return socket.getClass().getName().startsWith("com.android.org.conscrypt");
+    }
+
+    private static String[] getProtocolIds(List<Protocol> protocols) {
+        String[] result = new String[protocols.size()];
+        for (int i = 0; i < protocols.size(); i++) {
+            result[i] = protocols.get(i).toString();
+        }
+        return result;
     }
 
     /**
