@@ -48,6 +48,11 @@ java_library {
 
 java_library {
     name: "okhttp",
+    visibility: [
+        "//art/build/apex",
+        "//external/robolectric-shadows",
+        "//libcore",
+    ],
     srcs: [
         // Although some of the classes in the android/ directory are already in the correct
         // package and do not need to be moved to another package they are transformed as they
