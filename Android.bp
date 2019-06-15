@@ -36,7 +36,7 @@ java_library {
 
     hostdex: true,
 
-    no_standard_libs: true,
+    sdk_version: "none",
     libs: [
         "core-all",
         // TODO(b/129126571): Depend on Conscrypt stubs instead
@@ -67,7 +67,7 @@ java_library {
     hostdex: true,
     installable: true,
 
-    no_standard_libs: true,
+    sdk_version: "none",
     libs: [
         "core-all",
         // TODO(b/129126571): Depend on Conscrypt stubs instead
@@ -86,7 +86,7 @@ java_library {
 
     installable: true,
 
-    no_standard_libs: true,
+    sdk_version: "none",
     libs: [
         "core-all",
         // TODO(b/129126571): Depend on Conscrypt stubs instead
@@ -116,7 +116,7 @@ java_library_static {
     // Exclude test Android currently has problems with due to @Parameterized (requires JUnit 4.11).
     exclude_srcs: ["okhttp-tests/src/test/java/com/squareup/okhttp/WebPlatformUrlTest.java"],
 
-    no_standard_libs: true,
+    sdk_version: "none",
     libs: [
         "core-all",
         "okhttp-nojarjar",
