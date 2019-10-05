@@ -49,8 +49,7 @@ java_library {
     sdk_version: "none",
     system_modules: "core-all-system-modules",
     libs: [
-        // TODO(b/129126571): Depend on Conscrypt stubs instead
-        "conscrypt",
+        "conscrypt.module.intra.core.api.stubs",
     ],
     java_version: "1.7",
 }
@@ -79,8 +78,7 @@ java_library {
     sdk_version: "none",
     system_modules: "core-all-system-modules",
     libs: [
-        // TODO(b/129126571): Depend on Conscrypt stubs instead
-        "conscrypt",
+        "conscrypt.module.intra.core.api.stubs",
     ],
     java_version: "1.7",
 }
@@ -100,8 +98,7 @@ java_library {
     sdk_version: "none",
     system_modules: "core-all-system-modules",
     libs: [
-        // TODO(b/129126571): Depend on Conscrypt stubs instead
-        "conscrypt",
+        "conscrypt.module.intra.core.api.stubs",
     ],
     dex_preopt: {
         enabled: false,
@@ -132,7 +129,7 @@ java_library {
     libs: [
         "okhttp-nojarjar",
         "junit",
-        "conscrypt",
+        "conscrypt.module.intra.core.api.stubs",
         "bouncycastle-unbundled",
     ],
 
