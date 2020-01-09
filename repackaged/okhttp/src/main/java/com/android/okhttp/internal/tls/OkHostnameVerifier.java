@@ -40,7 +40,6 @@ public final class OkHostnameVerifier implements HostnameVerifier {
   // Android-changed: Add an instance which disallows top-level domain wildcards. b/144694112
   // public static final OkHostnameVerifier INSTANCE = new OkHostnameVerifier();
   public static final OkHostnameVerifier INSTANCE = new OkHostnameVerifier(false);
-  public static final OkHostnameVerifier STRICT_INSTANCE = new OkHostnameVerifier(true);
 
   /**
    * Quick and dirty pattern to differentiate IP addresses from hostnames. This
@@ -59,7 +58,7 @@ public final class OkHostnameVerifier implements HostnameVerifier {
   private static final int ALT_DNS_NAME = 2;
   private static final int ALT_IPA_NAME = 7;
 
-  // BEGIN Android-changed: Add an instance which disallows top-level domain wildcards. b/144694112
+  // BEGIN Android-changed: Add a mode which disallows top-level domain wildcards. b/144694112
   // private OkHostnameVerifier() {
   // }
   private final boolean strictWildcardMode;
@@ -67,7 +66,11 @@ public final class OkHostnameVerifier implements HostnameVerifier {
   private OkHostnameVerifier(boolean strictWildcardMode) {
     this.strictWildcardMode = strictWildcardMode;
   }
-  // END Android-changed: Add an instance which disallows top-level domain wildcards. b/144694112
+
+  public static OkHostnameVerifier strictInstance() {
+    return new OkHostnameVerifier(true);
+  }
+  // END Android-changed: Add a mode which disallows top-level domain wildcards. b/144694112
 
   @Override
   public boolean verify(String host, SSLSession session) {
