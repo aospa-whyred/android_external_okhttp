@@ -81,6 +81,10 @@ java_library {
         "conscrypt.module.intra.core.api.stubs",
     ],
     java_version: "1.7",
+    apex_available: [
+        "com.android.art.debug",
+        "com.android.art.release",
+    ],
 }
 
 // A guaranteed unstripped version of okhttp.
