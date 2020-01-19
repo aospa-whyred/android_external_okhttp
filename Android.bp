@@ -28,6 +28,7 @@ filegroup {
 }
 
 nojarjar_visibility = [
+    "//art/build/sdk",
     "//cts/tests/libcore/okhttp",
 ]
 
