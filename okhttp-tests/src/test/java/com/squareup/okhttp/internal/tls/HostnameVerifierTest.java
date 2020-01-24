@@ -51,7 +51,7 @@ public final class HostnameVerifierTest {
     // subjectAltNameWithToplevelWildcard(), and that test is not parameterized for clarity.
     return Arrays.asList(new Object[][] {
         { OkHostnameVerifier.INSTANCE },
-        { OkHostnameVerifier.STRICT_INSTANCE }
+        { OkHostnameVerifier.strictInstance() }
     });
   }
 
@@ -575,7 +575,7 @@ public final class HostnameVerifierTest {
         + "GUZFKHMeOZ8peQLT8b+5ik6pIO7Vu2pF6w==\n"
         + "-----END CERTIFICATE-----\n");
     assertTrue(OkHostnameVerifier.INSTANCE.verify("google.com", session));
-    assertFalse(OkHostnameVerifier.STRICT_INSTANCE.verify("google.com", session));
+    assertFalse(OkHostnameVerifier.strictInstance().verify("google.com", session));
   }
   // END Android-added: Verify behaviour with top level wildcard SAN. http://b/144694112
 
